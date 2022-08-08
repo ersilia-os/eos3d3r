@@ -24,8 +24,6 @@ headers = {
 # run predictions for each SMILES
 for SMILES in Lines:
 
-    print(SMILES)
-
     payload = f'''------WebKitFormBoundaryh77Oe3xhJIYB8YaY
 Content-Disposition: form-data; name="sm"
 
@@ -41,8 +39,6 @@ Content-Type: application/octet-stream
 
     soup = BeautifulSoup(req.text, 'lxml')
     score = (soup.find('td').text)
-
-    print(score)
 
     df.loc[len(df.index)] = [SMILES, score];
 
