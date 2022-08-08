@@ -1,40 +1,50 @@
-# imports
-import os
-import csv
-import joblib
+import requests
+from bs4 import BeautifulSoup
 import sys
-from rdkit import Chem
-from rdkit.Chem.Descriptors import MolWt
+import pandas as pd
 
-# parse arguments
-input_file = sys.argv[1]
-output_file = sys.argv[2]
+base = 'http://165.194.18.43:7050/cardpred'
 
-# current file directory
-root = os.path.dirname(os.path.abspath(__file__))
 
-# checkpoints directory
-checkpoints_dir = os.path.abspath(os.path.join(root, "..", "..", "checkpoints"))
+# readlines()
+input_file = open(sys.argv[1], 'r')
+Lines = input_file.readlines()[1:]
 
-# read checkpoints (here, simply an integer number: 42)
-ckpt = joblib.load(os.path.join(checkpoints_dir, "checkpoints.joblib"))
+df = pd.DataFrame(columns={'Score', 'SMILES'})
 
-# model to be run (here, calculate the Molecular Weight and add ckpt (42) to it)
-def my_model(smiles_list, ckpt):
-    return [MolWt(Chem.MolFromSmiles(smi))+ckpt for smi in smiles_list]
-    
-# read SMILES from .csv file, assuming one column with header
-with open(input_file, "r") as f:
-    reader = csv.reader(f)
-    next(reader) # skip header
-    smiles_list = [r[0] for r in reader]
-    
-# run model
-outputs = my_model(smiles_list, ckpt)
 
-# write output in a .csv file
-with open(output_file, "w") as f:
-    writer = csv.writer(f)
-    writer.writerow(["value"]) # header
-    for o in outputs:
-        writer.writerow([o])
+headers = {
+    'Origin': 'http://bioanalysis.cau.ac.kr:7050',
+    'Referer': 'http://bioanalysis.cau.ac.kr:7050/',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryh77Oe3xhJIYB8YaY',
+    'Host': '165.194.18.43:7050'
+}
+
+
+
+for SMILES in Lines:
+
+    print(SMILES)
+
+    payload = f'''------WebKitFormBoundaryh77Oe3xhJIYB8YaY
+Content-Disposition: form-data; name="sm"
+
+{SMILES}
+------WebKitFormBoundaryh77Oe3xhJIYB8YaY
+Content-Disposition: form-data; name="file"; filename=""
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundaryh77Oe3xhJIYB8YaY--'''
+
+    req = requests.post(base, data=payload, headers=headers)
+
+    soup = BeautifulSoup(req.text, 'lxml')
+    score = (soup.find('td').text)
+
+    print(score)
+
+    df.loc[len(df.index)] = [SMILES, score];
+
+df.to_csv(sys.argv[2], index=False)  
