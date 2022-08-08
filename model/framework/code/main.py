@@ -6,13 +6,13 @@ import pandas as pd
 base = 'http://165.194.18.43:7050/cardpred'
 
 
-# readlines()
+# readlines(): input file of CSV with one column of SMILES (with header)
 input_file = open(sys.argv[1], 'r')
 Lines = input_file.readlines()[1:]
 
 df = pd.DataFrame(columns={'Score', 'SMILES'})
 
-
+# header for posting request
 headers = {
     'Origin': 'http://bioanalysis.cau.ac.kr:7050',
     'Referer': 'http://bioanalysis.cau.ac.kr:7050/',
@@ -21,8 +21,7 @@ headers = {
     'Host': '165.194.18.43:7050'
 }
 
-
-
+# run predictions for each SMILES
 for SMILES in Lines:
 
     print(SMILES)
