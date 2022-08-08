@@ -8,8 +8,8 @@
 Short description of the model in one or two sentences.
 - Input: SMILES 
 - Output: Possibility of hERG blockade
-- Model type: (Regression or Classification)
-- Training set: (number of compounds and link to the training data)
+- Model type: Regression
+- Training set: 2130
 - Mode of training: Web-based model
 
 # Source code
