@@ -17,7 +17,7 @@ Lee, H., Yu, M., Kazmi, S. R., et al. Computational determination of hERG-relate
 - Checkpoints: [Web-Based Model Here](http://165.194.18.43:7050/)
 
 # License
-State the licences used which are GPL v3 license used by Ersilia and the license used by the source code, if any exists. Use [this guide]() on how to license new models to be incorporated into Ersilia's model hub 
+CardPred is licensed under the Creative Commons Attribution 4.0 International License ([http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/))
 
 # History 
 - Script written based on model website on 8/8. 
