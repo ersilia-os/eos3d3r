@@ -3,16 +3,19 @@ from bs4 import BeautifulSoup
 import sys
 import pandas as pd
 
+import warnings
+warnings.filterwarnings('ignore')
+
 base = 'http://165.194.18.43:7050/cardpred'
 
 
-# readlines(): input file of CSV with one column of SMILES (with header)
+# readlines()
 input_file = open(sys.argv[1], 'r')
 Lines = input_file.readlines()[1:]
 
-df = pd.DataFrame(columns={'Score', 'SMILES'})
+df = pd.DataFrame(columns={'SMILES', 'Score'})
 
-# header for posting request
+
 headers = {
     'Origin': 'http://bioanalysis.cau.ac.kr:7050',
     'Referer': 'http://bioanalysis.cau.ac.kr:7050/',
@@ -21,7 +24,8 @@ headers = {
     'Host': '165.194.18.43:7050'
 }
 
-# run predictions for each SMILES
+
+
 for SMILES in Lines:
 
     payload = f'''------WebKitFormBoundaryh77Oe3xhJIYB8YaY
@@ -37,9 +41,11 @@ Content-Type: application/octet-stream
 
     req = requests.post(base, data=payload, headers=headers)
 
-    soup = BeautifulSoup(req.text, 'lxml')
+    soup = BeautifulSoup(req.text, 'html.parser')
     score = (soup.find('td').text)
 
+    # add row to dataframe
     df.loc[len(df.index)] = [SMILES, score];
 
 df.to_csv(sys.argv[2], index=False)  
+
