@@ -17,7 +17,7 @@ Lee, H., Yu, M., Kazmi, S. R., et al. Computational determination of hERG-relate
 - Checkpoints: [Web-Based Model Here](http://165.194.18.43:7050/)
 
 # License
-CardPred is licensed under the Creative Commons Attribution 4.0 International License ([http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/))
+CardPred's journal article is licensed under the Creative Commons Attribution 4.0 International License ([http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/))
 
 # History 
 - Web-scraping script was written based on model website available on 8/8/2022. 
