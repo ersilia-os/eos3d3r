@@ -20,7 +20,7 @@ Lee, H., Yu, M., Kazmi, S. R., et al. Computational determination of hERG-relate
 CardPred is licensed under the Creative Commons Attribution 4.0 International License ([http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/))
 
 # History 
-- Script written based on model website on 8/8. 
+- Web-scraping script was written based on model website available on 8/8/2022. 
 
 # About us
 The [Ersilia Open Source Initiative](https://ersilia.io) is a Non Profit Organization ([1192266](https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5170657/full-print)) with the mission is to equip labs, universities and clinics in LMIC with AI/ML tools for infectious disease research.
